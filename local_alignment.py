@@ -1,6 +1,8 @@
 def local_alignment_matrix(seq1=str, seq2=str, scoring=dict):
-    """ Returns an n+1 * m+1 matrix for the local alignment
+    
+    """ Returns an n+1 * m+1 matrix for the pairwise local alignment
     of seq1 and seq2 sequences. """
+    
     m = len(seq1)
     n = len(seq2)
     matrix = [[0 for x in range(n+1)] for x in range(m+1)] 
@@ -25,8 +27,10 @@ def local_alignment_matrix(seq1=str, seq2=str, scoring=dict):
     
 
 def local_alignment(seq1=str, seq2=str, scoring=dict):
-    """ Performs local alignment of seq1 and seq2 sequencies. 
+    
+    """ Performs pairwise local alignment of seq1 and seq2 sequences. 
     Scoring holds the match, mismatch, and indel scores."""
+    
     alignment1 = "" # from seq1
     alignment2 = "" # from seq2
     best_pos = -float("inf")
