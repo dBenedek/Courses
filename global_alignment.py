@@ -1,5 +1,5 @@
 def global_alignment_matrix(seq1=str, seq2=str, scoring=dict):
-    """ Returns an n+1 x m+1 matrix for global alignment of seq1 and seq2 
+    """ Returns an n+1 * m+1 matrix for global alignment of seq1 and seq2 
     sequences. Scoring dict contains match, mismatch, and indel scores."""
     m = len(seq1)
     n = len(seq2)
@@ -28,7 +28,7 @@ def global_alignment_matrix(seq1=str, seq2=str, scoring=dict):
 
 def global_alignment(seq1=str, seq2=str, scoring=dict):
     """ Returns the global alignment of seq1 and seq2 sequences."""
-    matrix = global_alignment_matrix(seq1, seq2, scoring)
+    matrix = global_alignment_matrix(seq1, seq2, scoring) # set up alignment matrix of seq1 and seq2
     i = len(seq1)
     j = len(seq2)
     alignment1 = "" # from seq1
@@ -37,7 +37,7 @@ def global_alignment(seq1=str, seq2=str, scoring=dict):
         if i == 0 and j == 0:
             break
         else:
-            if seq1[i-1] == seq2[j-1] and i > 0 and j > 0: # match
+            if seq1[i-1] == seq2[j-1] and i > 0 and j > 0: 
                 i-=1
                 j-=1
                 alignment1 += seq1[i]
