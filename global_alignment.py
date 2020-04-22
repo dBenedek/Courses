@@ -33,39 +33,36 @@ def global_alignment(seq1=str, seq2=str, scoring=dict):
     j = len(seq2)
     alignment1 = "" # from seq1
     alignment2 = "" # from seq2
-    while True: 
-        if i == 0 and j == 0:
-            break
+    while (matrix[i][j] != 0): 
+        if seq1[i-1] == seq2[j-1] and i > 0 and j > 0: 
+            i-=1
+            j-=1
+            alignment1 += seq1[i]
+            alignment2 += seq2[j]
+        elif i == 0 and j != 0:
+            j -= 1
+            alignment1 += "-"
+            alignment2 += seq2[j]
+        elif j == 0 and i != 0:
+            i -= 1
+            alignment1 += seq1[i]
+            alignment2 += "-"
         else:
-            if seq1[i-1] == seq2[j-1] and i > 0 and j > 0: 
-                i-=1
-                j-=1
+            diag = matrix[i-1][j-1] # mismatch
+            hori = matrix[i][j-1] # indel
+            verti = matrix[i-1][j] # indel
+            best_step = max(diag, hori, verti)
+            if diag == best_step: 
+                i -= 1
+                j -= 1
                 alignment1 += seq1[i]
                 alignment2 += seq2[j]
-            elif i == 0 and j != 0:
+            elif hori == best_step:
                 j -= 1
-                alignment1 += "-"
                 alignment2 += seq2[j]
-            elif j == 0 and i != 0:
+                alignment1 += "-"
+            else:
                 i -= 1
                 alignment1 += seq1[i]
                 alignment2 += "-"
-            else:
-                diag = matrix[i-1][j-1] # mismatch
-                hori = matrix[i][j-1] # indel
-                verti = matrix[i-1][j] # indel
-                best_step = max(diag, hori, verti)
-                if diag == best_step: 
-                    i -= 1
-                    j -= 1
-                    alignment1 += seq1[i]
-                    alignment2 += seq2[j]
-                elif hori == best_step:
-                    j -= 1
-                    alignment2 += seq2[j]
-                    alignment1 += "-"
-                else:
-                    i -= 1
-                    alignment1 += seq1[i]
-                    alignment2 += "-"
     return alignment1[::-1], alignment2[::-1]
